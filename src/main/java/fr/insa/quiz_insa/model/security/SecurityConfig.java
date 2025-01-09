@@ -55,7 +55,6 @@ public class SecurityConfig {
     private static final String[] REQUIRE_AUTH = {
             "/user/**",
             "/admin/**",
-
     };
 
 
