@@ -1,4 +1,4 @@
-package fr.insa.quiz_insa.model;
+package fr.insa.quiz_insa.model.Class;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -14,9 +14,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class ReponseSimple {
+public class ReponseSimple extends Question {
     @NotBlank
     private String texte;
     @Id
-    private Long id;
+    private long id;
 }

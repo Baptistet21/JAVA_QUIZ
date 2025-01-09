@@ -1,6 +1,6 @@
 package fr.insa.quiz_insa.repository;
 
-import fr.insa.quiz_insa.model.Utilisateur;
+import fr.insa.quiz_insa.model.Class.Utilisateur;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;

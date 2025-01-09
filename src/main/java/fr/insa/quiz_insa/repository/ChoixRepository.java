@@ -1,7 +1,7 @@
 package fr.insa.quiz_insa.repository;
 
-import fr.insa.quiz_insa.model.Choix;
-import fr.insa.quiz_insa.model.Question;
+import fr.insa.quiz_insa.model.Class.Choix;
+import fr.insa.quiz_insa.model.Class.Question;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -18,17 +18,13 @@ public interface ChoixRepository extends CrudRepository<Choix,Long> {
 
     @Modifying
     @Transactional
-    @Query(value = "DELETE FROM Choix c WHERE c.question = :question")
+    @Query(value = "DELETE FROM Choix c WHERE c = :question")
     void deleteChoixByQuestion(Question question);
 
 
     @Modifying
     @Transactional
-    @Query(value = "DELETE FROM Choix c WHERE c.question.id = :id")
+    @Query(value = "DELETE FROM Choix c WHERE c.id = :id")
     void deleteChoixByQuestionId(Long id);
-
-
-    @Query("select c.id from Choix c where c.question.questionnaire.id = :id and c.reponse = true")
-    List<Long> getChoixTrue(@Param("id") Long id);
 
 }

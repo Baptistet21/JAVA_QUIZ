@@ -1,6 +1,6 @@
 package fr.insa.quiz_insa.service;
 
-import fr.insa.quiz_insa.model.Utilisateur;
+import fr.insa.quiz_insa.model.Class.Utilisateur;
 import fr.insa.quiz_insa.repository.UtilisateurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +14,7 @@ public class UtilisateurService {
     @Autowired
     private UtilisateurRepository utilisateurRepository;
 
-    public List<Utilisateur> findAll() {
+    public Iterable<Utilisateur> findAll() {
         return utilisateurRepository.findAll();
     }
 

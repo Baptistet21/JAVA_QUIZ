@@ -1,4 +1,4 @@
-package fr.insa.quiz_insa.model;
+package fr.insa.quiz_insa.model.Class;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -15,10 +15,11 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Choix implements Serializable {
-    @Id @GeneratedValue
-    private long id;
+public class Choix extends Question implements Serializable {
 
     @OneToMany(mappedBy = "choix", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Possibilite> possibilites;
+
+    public Choix(String nom, boolean b, Question question) {
+    }
 }

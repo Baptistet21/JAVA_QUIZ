@@ -1,6 +1,6 @@
 package fr.insa.quiz_insa.controller;
 
-import fr.insa.quiz_insa.model.Utilisateur;
+import fr.insa.quiz_insa.model.Class.Utilisateur;
 import fr.insa.quiz_insa.service.UtilisateurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +17,7 @@ public class UtilisateurController {
     private UtilisateurService utilisateurService;
 
     @GetMapping
-    public List<Utilisateur> getAllUtilisateurs() {
+    public Iterable<Utilisateur> getAllUtilisateurs() {
         return utilisateurService.findAll();
     }
 

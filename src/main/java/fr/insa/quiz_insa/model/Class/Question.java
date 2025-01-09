@@ -1,4 +1,4 @@
-package fr.insa.quiz_insa.model;
+package fr.insa.quiz_insa.model.Class;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -15,7 +15,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Question implements Serializable {
+public class Question implements Serializable {
     @Id
     @GeneratedValue
     private long id;
@@ -29,15 +29,6 @@ public abstract class Question implements Serializable {
     @ManyToOne
     @JoinColumn(name = "questionnaire")
     private Questionnaire questionnaire;
-
-    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Choix> choix;
-
-    @OneToOne(mappedBy = "question")
-    private ReponseSimple reponseSimple;
-
-    @OneToMany(mappedBy = "question_reponseQuiz", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<ReponseQuiz> reponseQuizs;
 
     @Transient
     private String nb_correctError;

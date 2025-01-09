@@ -1,7 +1,7 @@
 package fr.insa.quiz_insa.controller.authController;
 
 import fr.insa.quiz_insa.model.DTO.UserDTO;
-import fr.insa.quiz_insa.model.Utilisateur;
+import fr.insa.quiz_insa.model.Class.Utilisateur;
 import fr.insa.quiz_insa.model.security.LoginRequest;
 import fr.insa.quiz_insa.repository.UtilisateurRepository;
 import jakarta.validation.Valid;

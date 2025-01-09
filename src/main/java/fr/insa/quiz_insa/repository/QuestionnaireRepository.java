@@ -1,6 +1,6 @@
 package fr.insa.quiz_insa.repository;
 
-import fr.insa.quiz_insa.model.Questionnaire;
+import fr.insa.quiz_insa.model.Class.Questionnaire;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

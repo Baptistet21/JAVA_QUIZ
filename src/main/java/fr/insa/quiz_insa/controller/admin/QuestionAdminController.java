@@ -1,13 +1,7 @@
 package fr.insa.quiz_insa.controller.admin;
 
 
-import fr.insa.quiz_insa.model.*;
-import fr.insa.quiz_insa.model.Choix;
-import fr.insa.quiz_insa.model.Note;
-import fr.insa.quiz_insa.model.Question;
-import fr.insa.quiz_insa.model.Questionnaire;
-import fr.insa.quiz_insa.model.ReponseSimple;
-import fr.insa.quiz_insa.model.Utilisateur;
+import fr.insa.quiz_insa.model.Class.*;
 import fr.insa.quiz_insa.repository.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Value;
@@ -205,7 +199,7 @@ public class QuestionAdminController {
 
             questionRepository.save(question);
 
-            ReponseSimple reponseSimple = new ReponseSimple(repLibre, question);
+            ReponseSimple reponseSimple = new ReponseSimple(repLibre, question.getId());
             reponseSimpleRepository.save(reponseSimple);
 
 
@@ -222,7 +216,7 @@ public class QuestionAdminController {
         } else {
             try {
                 String lien = System.currentTimeMillis() + "_" + questionnaire_id + "_" + object.getOriginalFilename();
-                SslProperties.Bundles.Watch.File dest = new File(uploadDirImage + File.separator + lien);
+                java.io.File dest = new java.io.File(uploadDirImage + java.io.File.separator + lien);
                 object.transferTo(dest);
                 return lien;
             } catch (IOException e) {
@@ -315,18 +309,18 @@ public class QuestionAdminController {
             @PathVariable Long questionId){
 
         /* supprime la question */
-        Long idQuestionnaire =questionRepository.getQuestionnaireIdByQuestionId(questionId);
+        Long idQuestionnaire =questionRepository.getQuestionnaireIdById(questionId);
         Question question = questionRepository.getQuestionByQuestionnaireIdAndId(idQuestionnaire,questionId);
-        if (question.getReponseSimple() != null) {
-            /* supprime la question simple */
-            reponseSimpleRepository.deleteReponseSimpleByQuestionId(questionId);
-            questionRepository.deleteById(questionId);
-        }
-        else {
+//        if (question.getReponseSimple() != null) {
+//            /* supprime la question simple */
+//            reponseSimpleRepository.deleteReponseSimpleByQuestionId(questionId);
+//            questionRepository.deleteById(questionId);
+//        }
+//        else {
             /* supprime les choix */
             questionRepository.deleteById(questionId);
             choixRepository.deleteChoixByQuestionId(questionId);
-        }
+       // }
 
         return "redirect:/admin/menuSuppQuestion/" + idQuestionnaire;
     }
@@ -389,7 +383,7 @@ public class QuestionAdminController {
     /* renvoie vers la page de suppression d'un user, avec la liste des user en attribut */
     @GetMapping("/menuSuppUser")
     public String suppUser(Model model) {
-        Iterable<fr.insa.quiz_insa.model.Utilisateur> utilisateurs = utilisateurRepository.findByRole("USER");
+        Iterable<fr.insa.quiz_insa.model.Class.Utilisateur> utilisateurs = utilisateurRepository.findByRole("USER");
         model.addAttribute("utilisateur", utilisateurs);
         return "admin/SupprimerUser";
     }

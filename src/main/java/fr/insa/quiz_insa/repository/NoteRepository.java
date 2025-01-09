@@ -1,7 +1,7 @@
 package fr.insa.quiz_insa.repository;
 
-import fr.insa.quiz_insa.model.Note;
-import fr.insa.quiz_insa.model.Questionnaire;
+import fr.insa.quiz_insa.model.Class.Note;
+import fr.insa.quiz_insa.model.Class.Questionnaire;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
