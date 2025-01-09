@@ -7,5 +7,6 @@ public interface UtilisateurRepository extends CrudRepository<Utilisateur,Long> 
 
     Utilisateur findByEmail (String email);
 
+    Iterable<Utilisateur> findByRole(String role);
 
 }

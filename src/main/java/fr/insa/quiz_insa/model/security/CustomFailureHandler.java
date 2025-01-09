@@ -17,6 +17,6 @@ public class CustomFailureHandler implements AuthenticationFailureHandler {
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
         String errorMessage = "Adresse e-mail ou mot de passe incorrect.";
         request.getSession().setAttribute("errorMessage", errorMessage);
-        response.sendRedirect("/connexion?error");
+        response.sendRedirect("/auth/connexion?error");
     }
 }

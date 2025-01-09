@@ -29,7 +29,7 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
         var roles = authourities.stream().map(r -> r.getAuthority()).findFirst();
 
         if (roles.orElse("").equals("ADMIN")) {
-            response.sendRedirect("/admin/menu2");
+            response.sendRedirect("/admin/menu");
         } else if (roles.orElse("").equals("USER")) {
             // Obtenez l'ID de l'utilisateur à partir de la base de données ou d'où vous le stockez
             String username = authentication.getName();
@@ -42,10 +42,10 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
 //                response.sendRedirect("/view/user/menu2/" + userId);
                 response.sendRedirect("/user/menu2");
             } else {
-                response.sendRedirect("/connexion");
+                response.sendRedirect("/auth/connexion");
             }
         } else {
-            response.sendRedirect("/connexion");
+            response.sendRedirect("/auth/connexion");
         }
     }
 }

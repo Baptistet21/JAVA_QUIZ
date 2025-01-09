@@ -45,7 +45,7 @@ public class SecurityConfig {
 
     /* liste des url sans besoin de authentification*/
     private static final String[] NOT_REQUIRE_AUTH = {
-            "/**",
+            "/auth/**",
             "/styles/**",
             "/image/**",
             "/script/**"
@@ -76,8 +76,8 @@ public class SecurityConfig {
                         .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
                 )
                 .formLogin(form -> form
-                        .loginPage("/connexion")
-                        .loginProcessingUrl("/connexion")
+                        .loginPage("/auth/connexion")
+                        .loginProcessingUrl("/auth/connexion")
                         .successHandler(customSuccessHandler)
                         .failureHandler(customFailureHandler)
                         .permitAll()
