@@ -1,29 +1,21 @@
 package fr.insa.quiz_insa.model;
 
-
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.io.Serializable;
-
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class ReponseQuiz implements Serializable {
+public class ReponseQuiz extends Question {
 
-    @Id
-    @GeneratedValue
-    private long id;
-
-    private String reponse;
-
-    @NotNull
     @ManyToOne
     @JoinColumn(name = "note")
     private Note note;
@@ -33,8 +25,12 @@ public class ReponseQuiz implements Serializable {
     @JoinColumn(name = "question")
     private Question question_reponseQuiz;
 
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "reponse")
+    private ReponseSimple reponse;
+
     public ReponseQuiz(String reponse, Note note, Question question_reponseQuiz) {
-        this.reponse = reponse;
         this.note = note;
         this.question_reponseQuiz = question_reponseQuiz;
     }
