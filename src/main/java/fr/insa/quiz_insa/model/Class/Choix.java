@@ -1,5 +1,6 @@
 package fr.insa.quiz_insa.model.Class;
 
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
