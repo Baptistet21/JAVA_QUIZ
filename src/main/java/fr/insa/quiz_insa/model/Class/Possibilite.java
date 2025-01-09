@@ -8,18 +8,23 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.util.Set;
 
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Choix extends Question implements Serializable {
+public class Possibilite implements Serializable {
+    @Id @GeneratedValue
+    private long id;
 
-    @OneToMany(mappedBy = "choix", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Possibilite> possibilites;
+    @NotBlank
+    private String name;
 
-    public Choix(String nom, boolean b, Question question) {
-    }
+    @NotBlank
+    private boolean correct;
+
+    @ManyToOne
+    @JoinColumn(name = "choix_id")
+    private Choix choix;
 }
