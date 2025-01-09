@@ -1,4 +1,5 @@
-package fr.insa.quiz_insa.model;
+package fr.insa.quiz_insa.model.Class;
+
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
