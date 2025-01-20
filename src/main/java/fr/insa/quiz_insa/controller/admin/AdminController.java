@@ -118,81 +118,93 @@ public class AdminController {
             return 0;
         }
     }
-//
-//    /* permet la creation de question, avec un intitule, un nombre de reponse correct, et 4 choix (un nom, un boolean si la reponse est correct */
-//    @PostMapping("/creationQuestion")
-//    public String createQuestion(@ModelAttribute("question") Question question,
-//                                 @RequestParam Long questionnaireId,
-//                                 @RequestParam("imageUpload") MultipartFile imageUpload,
-//                                 @RequestParam String nom1, @RequestParam(required = false) String reponse1,
-//                                 @RequestParam String nom2, @RequestParam(required = false) String reponse2,
-//                                 @RequestParam String nom3, @RequestParam(required = false) String reponse3,
-//                                 @RequestParam String nom4, @RequestParam(required = false) String reponse4, RedirectAttributes redirectAttributes) {
-//
-//        Optional<Questionnaire> questionnaireOp = questionnaireRepository.findById(questionnaireId);
-//
-//
-//        /* calcul du nombre de correct selectionné*/
-//        int nb_correct = verif_nb_correct(reponse1) + verif_nb_correct(reponse2) + verif_nb_correct(reponse3) + verif_nb_correct(reponse4);
-//
-//        if (nb_correct == question.getNb_correct() && question.getNb_correct() > 0) {
-//            if (questionnaireOp.isPresent()) {
-//                Questionnaire questionnaire = questionnaireOp.get();
-//                question.setQuestionnaire(questionnaire);
-//
-//                /* sauvegarde de la question*/
-//                questionRepository.save(question);
-//
-//                /* sauvegarde des choix par rapport a une question */
-//                Choix choix1 = createChoix(nom1, reponse1, question);
-//                Choix choix2 = createChoix(nom2, reponse2, question);
-//                Choix choix3 = createChoix(nom3, reponse3, question);
-//                Choix choix4 = createChoix(nom4, reponse4, question);
-//
-//                choixRepository.save(choix1);
-//                choixRepository.save(choix2);
-//                choixRepository.save(choix3);
-//                choixRepository.save(choix4);
-//
-//
-//                return "redirect:/admin/question/" + questionnaireId;
-//            }
-//            else {
-//                return "redirect:/admin/questionnaire";
-//            }
-//        }
-//        else {
-//            /* gestion erreur si le nombre de correct n'est pas egal au nombre de correct selectionné */
-//            redirectAttributes.addAttribute("error", "Vous n'avez pas indiqué le bon nombre de réponses correctes !");
-//            return "redirect:/admin/question/" + questionnaireId;
-//
-//        }
-//
-//    }
-//
-//    @PostMapping("/creationQuestionLibre")
-//    public String createQuestionLibre(@ModelAttribute("question") Question question,
-//                                      @RequestParam Long questionnaireId,
-//                                      @RequestParam("repLibre") String repLibre)  {
-//
-//        Optional<Questionnaire> questionnaireOp = questionnaireRepository.findById(questionnaireId);
-//
-//        if (questionnaireOp.isPresent()) {
-//            Questionnaire questionnaire = questionnaireOp.get();
-//            question.setQuestionnaire(questionnaire);
-//
-//            question.setNb_correct(1);
-//
-//            questionRepository.save(question);
-//
-//            ReponseSimple reponseSimple = new ReponseSimple(repLibre, question);
-//            reponseSimpleRepository.save(reponseSimple);
-//
-//
-//            return "redirect:/admin/question/" + questionnaireId;
-//        } else {
-//            return "redirect:/admin/questionnaire";
-//        }
-//    }
+
+    /* permet la creation de question, avec un intitule, un nombre de reponse correct, et 4 choix (un nom, un boolean si la reponse est correct */
+    @PostMapping("/creationQuestion")
+    public String createQuestion(@ModelAttribute("question") Question question,
+                                 @RequestParam Long questionnaireId,
+                                 @RequestParam("imageUpload") MultipartFile imageUpload,
+                                 @RequestParam String nom1, @RequestParam(required = false) String reponse1,
+                                 @RequestParam String nom2, @RequestParam(required = false) String reponse2,
+                                 @RequestParam String nom3, @RequestParam(required = false) String reponse3,
+                                 @RequestParam String nom4, @RequestParam(required = false) String reponse4, RedirectAttributes redirectAttributes) {
+
+        Optional<Questionnaire> questionnaireOp = questionnaireRepository.findById(questionnaireId);
+
+
+        /* calcul du nombre de correct selectionné*/
+        int nb_correct = verif_nb_correct(reponse1) + verif_nb_correct(reponse2) + verif_nb_correct(reponse3) + verif_nb_correct(reponse4);
+
+        if (nb_correct == question.getNb_correct() && question.getNb_correct() > 0) {
+            if (questionnaireOp.isPresent()) {
+                Questionnaire questionnaire = questionnaireOp.get();
+                question.setQuestionnaire(questionnaire);
+
+                /* sauvegarde de la question*/
+                questionRepository.save(question);
+
+                /* sauvegarde des choix par rapport a une question */
+                Choix choix1 = createChoix(nom1, reponse1, question);
+                Choix choix2 = createChoix(nom2, reponse2, question);
+                Choix choix3 = createChoix(nom3, reponse3, question);
+                Choix choix4 = createChoix(nom4, reponse4, question);
+
+                choixRepository.save(choix1);
+                choixRepository.save(choix2);
+                choixRepository.save(choix3);
+                choixRepository.save(choix4);
+
+
+                return "redirect:/admin/question/" + questionnaireId;
+            }
+            else {
+                return "redirect:/admin/questionnaire";
+            }
+        }
+        else {
+            /* gestion erreur si le nombre de correct n'est pas egal au nombre de correct selectionné */
+            redirectAttributes.addAttribute("error", "Vous n'avez pas indiqué le bon nombre de réponses correctes !");
+            return "redirect:/admin/question/" + questionnaireId;
+
+        }
+
+    }
+
+    @PostMapping("/creation_questionLibre")
+    public String createQuestionLibre(@ModelAttribute("question") Question question,
+                                      @RequestParam Long questionnaireId,
+                                      @RequestParam("repLibre") String repLibre) {
+
+        // Récupération du questionnaire à partir de l'identifiant
+        Optional<Questionnaire> questionnaireOp = questionnaireRepository.findById(questionnaireId);
+
+        if (questionnaireOp.isPresent()) {
+            Questionnaire questionnaire = questionnaireOp.get();
+
+            // Associer le questionnaire à la question
+            question.setQuestionnaire(questionnaire);
+
+            // Définir le nombre de réponses correctes (1 pour une question libre)
+            question.setNb_correct(1);
+
+            // Créer une réponse simple avec les données correspondantes
+            ReponseSimple reponseSimple = new ReponseSimple(
+                    question.getIntitule(),  // Intitulé de la question
+                    1,
+                    questionnaire,
+                    repLibre                // Texte de la réponse libre
+            );
+
+            // Sauvegarder la réponse simple
+            reponseSimpleRepository.save(reponseSimple);
+
+            // Rediriger vers la page des questions du questionnaire
+            return "redirect:/admin/question/" + questionnaireId;
+        } else {
+            // Si le questionnaire n'existe pas, rediriger vers la liste des questionnaires
+            return "redirect:/admin/questionnaire";
+        }
+    }
+
 
 }

@@ -16,7 +16,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Questionnaire extends Question implements Serializable {
+public class Questionnaire implements Serializable {
 
     @NotBlank(message = "Le thème ne peut pas être vide")
     private String theme;
@@ -36,4 +36,8 @@ public class Questionnaire extends Question implements Serializable {
 
     @Transient
     private String niveauError;
+
+    @Id @GeneratedValue
+    private Long id;
+
 }

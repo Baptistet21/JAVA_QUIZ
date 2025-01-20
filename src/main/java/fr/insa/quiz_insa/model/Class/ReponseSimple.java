@@ -17,6 +17,9 @@ import lombok.Setter;
 public class ReponseSimple extends Question {
     @NotBlank
     private String texte;
-    @Id
-    private long id;
+
+    public ReponseSimple(String intitule,int nb_correct, Questionnaire questionnaire, String texte) {
+        super(intitule, nb_correct, questionnaire);
+        this.texte = texte;
+    }
 }

@@ -32,4 +32,10 @@ public class Question implements Serializable {
 
     @Transient
     private String nb_correctError;
+
+    public Question(String intitule, int nb_correct, Questionnaire questionnaire) {
+        this.intitule = intitule;
+        this.nb_correct = nb_correct;
+        this.questionnaire = questionnaire;
+    }
 }

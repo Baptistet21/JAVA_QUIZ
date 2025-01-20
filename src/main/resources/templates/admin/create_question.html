@@ -27,58 +27,60 @@
     <h2 class="mb-4">CREATION DES QUESTIONS</h2>
 
     <div id="formChoix">
-        <form method="post" th:action="@{/admin/creationQuestion}" th:object="${question}" enctype="multipart/form-data">
-            <input type="hidden" name="questionnaireId" th:value="${questionnaireId}">
-            <div class="mb-3">
-                <span th:if="${question.nb_correctError}" th:text="${question.nb_correctError}" class="text-danger"></span>
-            </div>
-            <div class="mb-3">
-                <label for="intitule" class="form-label">Intitulé de la question</label>
-                <input type="text" class="form-control" placeholder="Intitulé de la question" th:field="*{intitule}" id="intitule">
-            </div>
-            <div class="mb-3">
-                <label for="nb_correct" class="form-label">Nombre de choix correct</label>
-                <input type="number" class="form-control" placeholder="Nombre de choix correct" th:field="*{nb_correct}" id="nb_correct">
-            </div>
-            <button type="button" class="btn btn-secondary mb-3" onclick="toggleForm('formChoix', 'formReponseLibre')">Question Libre</button>
-            <div class="mb-3">
-                <h3>RÉPONSE 1 :</h3>
-                <input type="text" class="form-control mb-2" placeholder="Réponse" name="nom1" id="nom1" required>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="reponse1" name="reponse1">
-                    <label class="form-check-label" for="reponse1">Réponse correcte</label>
-                </div>
-            </div>
-            <div class="mb-3">
-                <h3>RÉPONSE 2 :</h3>
-                <input type="text" class="form-control mb-2" placeholder="Réponse" name="nom2" id="nom2" required>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="reponse2" name="reponse2">
-                    <label class="form-check-label" for="reponse2">Réponse correcte</label>
-                </div>
-            </div>
-            <div class="mb-3">
-                <h3>RÉPONSE 3 :</h3>
-                <input type="text" class="form-control mb-2" placeholder="Réponse" name="nom3" id="nom3" required>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="reponse3" name="reponse3">
-                    <label class="form-check-label" for="reponse3">Réponse correcte</label>
-                </div>
-            </div>
-            <div class="mb-3">
-                <h3>RÉPONSE 4 :</h3>
-                <input type="text" class="form-control mb-2" placeholder="Réponse" name="nom4" id="nom4" required>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="reponse4" name="reponse4">
-                    <label class="form-check-label" for="reponse4">Réponse correcte</label>
-                </div>
-            </div>
-            <input type="submit" class="btn btn-primary" value="Question suivante">
-        </form>
-    </div>
+<!--        <form method="post" th:action="@{/admin/creationQuestion}" th:object="${question}" enctype="multipart/form-data">-->
+<!--            <input type="hidden" name="questionnaireId" th:value="${questionnaireId}">-->
+<!--            <div class="mb-3">-->
+<!--                <span th:if="${question.nb_correctError}" th:text="${question.nb_correctError}" class="text-danger"></span>-->
+<!--            </div>-->
+<!--            <div class="mb-3">-->
+<!--                <label for="intitule" class="form-label">Intitulé de la question</label>-->
+<!--                <input type="text" class="form-control" placeholder="Intitulé de la question" th:field="*{intitule}" id="intitule">-->
+<!--            </div>-->
+<!--            <div class="mb-3">-->
+<!--                <label for="nb_correct" class="form-label">Nombre de choix correct</label>-->
+<!--                <input type="number" class="form-control" placeholder="Nombre de choix correct" th:field="*{nb_correct}" id="nb_correct">-->
+<!--            </div>-->
+<!--            <button type="button" class="btn btn-secondary mb-3" onclick="toggleForm('formChoix', 'formReponseLibre')">Question Libre</button>-->
+<!--            <div class="mb-3">-->
+<!--                <h3>RÉPONSE 1 :</h3>-->
+<!--                <input type="text" class="form-control mb-2" placeholder="Réponse" name="nom1" id="nom1" required>-->
+<!--                <div class="form-check">-->
+<!--                    <input class="form-check-input" type="checkbox" id="reponse1" name="reponse1">-->
+<!--                    <label class="form-check-label" for="reponse1">Réponse correcte</label>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="mb-3">-->
+<!--                <h3>RÉPONSE 2 :</h3>-->
+<!--                <input type="text" class="form-control mb-2" placeholder="Réponse" name="nom2" id="nom2" required>-->
+<!--                <div class="form-check">-->
+<!--                    <input class="form-check-input" type="checkbox" id="reponse2" name="reponse2">-->
+<!--                    <label class="form-check-label" for="reponse2">Réponse correcte</label>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="mb-3">-->
+<!--                <h3>RÉPONSE 3 :</h3>-->
+<!--                <input type="text" class="form-control mb-2" placeholder="Réponse" name="nom3" id="nom3" required>-->
+<!--                <div class="form-check">-->
+<!--                    <input class="form-check-input" type="checkbox" id="reponse3" name="reponse3">-->
+<!--                    <label class="form-check-label" for="reponse3">Réponse correcte</label>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="mb-3">-->
+<!--                <h3>RÉPONSE 4 :</h3>-->
+<!--                <input type="text" class="form-control mb-2" placeholder="Réponse" name="nom4" id="nom4" required>-->
+<!--                <div class="form-check">-->
+<!--                    <input class="form-check-input" type="checkbox" id="reponse4" name="reponse4">-->
+<!--                    <label class="form-check-label" for="reponse4">Réponse correcte</label>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <input type="submit" class="btn btn-primary" value="Question suivante">-->
+<!--        </form>-->
+<!--    </div>-->
 
-    <div id="formReponseLibre" style="display: none;">
-        <form method="post" th:action="@{/admin/creationQuestionLibre}" th:object="${question}" enctype="multipart/form-data">
+<!--    <div id="formReponseLibre" style="display: none;">-->
+        <div id="formReponseLibre">
+
+        <form method="post" th:action="@{/admin/creation_questionLibre}" th:object="${question}" enctype="multipart/form-data">
             <input type="hidden" name="questionnaireId" th:value="${questionnaireId}">
             <div class="mb-3">
                 <label for="intituleForm2" class="form-label">Intitulé de la question</label>
