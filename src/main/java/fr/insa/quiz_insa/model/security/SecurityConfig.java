@@ -67,9 +67,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorization ->
                         authorization
                                 .requestMatchers(NOT_REQUIRE_AUTH).permitAll()
-                                .requestMatchers("/admin/**").hasAuthority("ADMIN")
-                                .requestMatchers("/user/**").hasAuthority("USER")
                                 .requestMatchers(REQUIRE_AUTH).authenticated()
+                                .requestMatchers("/admin/**").hasAuthority("ADMIN")
+                                .requestMatchers("/user/**").authenticated()
                 )
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)

@@ -1,20 +1,30 @@
 package fr.insa.quiz_insa.controller;
 
 import fr.insa.quiz_insa.model.Class.Utilisateur;
+import fr.insa.quiz_insa.service.QuestionService;
+import fr.insa.quiz_insa.model.service.QuestionnaireService;
+import fr.insa.quiz_insa.service.ReponseQuizService;
 import fr.insa.quiz_insa.service.UtilisateurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 
-@RestController
-@RequestMapping("/api/utilisateurs")
+@Controller
+@RequestMapping("/utilisateurs")
 public class UtilisateurController {
 
     @Autowired
     private UtilisateurService utilisateurService;
+
+    @Autowired
+    private QuestionnaireService questionnaireService;
+    @Autowired
+    private QuestionService questionService;
+    @Autowired
+    private ReponseQuizService reponseQuizService;
 
     @GetMapping
     public Iterable<Utilisateur> getAllUtilisateurs() {

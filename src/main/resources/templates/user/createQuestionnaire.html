@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create Questionnaire</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+    <h1>Create a New Questionnaire</h1>
+    <form th:action="@{/user/createQuestionnaire}" th:object="${questionnaire}" method="post">
+        <div class="mb-3">
+            <label for="theme" class="form-label">Nom du thème</label>
+            <input type="text" class="form-control" placeholder="Nom du thème" th:field="*{theme}" id="theme" required>
+            <div class="invalid-feedback">
+                Veuillez entrer un nom de thème.
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="niveau" class="form-label">Niveau de difficulté</label>
+            <input type="number" class="form-control" placeholder="Niveau de difficulté" th:field="*{niveau}" id="niveau" required>
+            <div class="invalid-feedback">
+                Veuillez entrer un niveau de difficulté.
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Création des questions</button>
+    </form>
+</body>
+</html>

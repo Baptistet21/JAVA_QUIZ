@@ -21,7 +21,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="n : ${note}">
+        <tr th:each="n : ${notes}">
             <td th:text="${n.getResultat()}"></td>
             <td th:text="${n.getDate().getDayOfMonth() + '/' + n.getDate().getMonthValue()+ '/' + n.getDate().getYear()+ ' ' + n.getDate().getHour() + ':' + n.getDate().getMinute()}"></td>
             <td th:text="${n.getQuestionnaire_note().theme}"></td>
@@ -30,7 +30,7 @@
         </tbody>
     </table>
     <div class="d-flex justify-content-between mt-4">
-        <a th:href="@{'/question/selectQuizNote/' + ${user.getId()}}" class="btn btn-primary">Retour</a>
+        <a th:href="@{'/user/home'}" class="btn btn-primary">Retour</a>
         <a th:href="@{'/question/menu/' + ${user.getId()}}" class="btn btn-secondary">Menu</a>
     </div>
 </div>

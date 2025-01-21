@@ -12,11 +12,14 @@ public class CustomUserDetails implements UserDetails {
         this.utilisateur = utilisateur;
     }
 
+    public Utilisateur getUtilisateur() {
+        return utilisateur;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(()->utilisateur.getRole());
     }
-
 
     @Override
     public String getPassword() {

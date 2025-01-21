@@ -9,10 +9,14 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Set;
 
 @Setter
@@ -20,7 +24,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Utilisateur implements Serializable {
+public class Utilisateur implements Serializable, UserDetails {
 
     /* attributs d'un utilisateur */
     @Id
@@ -65,5 +69,44 @@ public class Utilisateur implements Serializable {
         this.lastActive = lastActive;
     }
 
+    public boolean isAdmin() {
+        return role != null && Arrays.asList(role.split(",")).contains("ADMIN");
+    }
+
+    @Override
+    @JsonIgnore
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Set.of(() -> role); // Simple example
+    }
+
+    @Override
+    @JsonIgnore
+    public String getUsername() {
+        return email; // Or another field if `email` isn't your username
+    }
+
+    @Override
+    @JsonIgnore
+    public boolean isAccountNonExpired() {
+        return true; // Customize based on your logic
+    }
+
+    @Override
+    @JsonIgnore
+    public boolean isAccountNonLocked() {
+        return true; // Customize based on your logic
+    }
+
+    @Override
+    @JsonIgnore
+    public boolean isCredentialsNonExpired() {
+        return true; // Customize based on your logic
+    }
+
+    @Override
+    @JsonIgnore
+    public boolean isEnabled() {
+        return true; // Customize based on your logic
+    }
 
 }

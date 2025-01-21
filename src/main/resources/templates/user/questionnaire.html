@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Questionnaire</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <style>
+        body {
+            background-color: #f5f5f5;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        .question p {
+            font-weight: bold;
+        }
+        .question input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #d71921;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #d71921;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 th:text="${questionnaire.theme}">Questionnaire Title</h1>
+        <h2>Questions</h2>
+        <form th:action="@{/user/submitQuestionnaire}" method="post">
+            <input type="hidden" th:name="userId" th:value="${user.id}" />
+            <div th:each="question : ${questionnaire.questions}" class="question">
+                <p th:text="${question.intitule}">Question content</p>
+                <label>
+                    <input type="text" th:name="|answers[${question.id}]|" required/>
+                </label>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
