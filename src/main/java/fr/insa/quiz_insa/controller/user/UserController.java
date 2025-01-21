@@ -3,6 +3,7 @@ package fr.insa.quiz_insa.controller.user;
 import fr.insa.quiz_insa.model.Class.*;
 import fr.insa.quiz_insa.repository.NoteRepository;
 import fr.insa.quiz_insa.repository.ReponseSimpleRepository;
+import fr.insa.quiz_insa.repository.UtilisateurRepository;
 import fr.insa.quiz_insa.service.QuestionService;
 import fr.insa.quiz_insa.model.service.QuestionnaireService;
 import fr.insa.quiz_insa.service.ReponseQuizService;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Optional;
@@ -32,6 +34,9 @@ public class UserController {
     private ReponseSimpleRepository reponseSimpleRepository;
     @Autowired
     private NoteRepository noteRepository;
+    @Autowired
+    private UtilisateurRepository utilisateurRepository;
+
 
     @GetMapping("/home")
     public String getAllQuestionnaires(Model model) {
@@ -130,11 +135,41 @@ public class UserController {
         return "redirect:/user/home";
     }
 
+
     @GetMapping("/resultats")
     public String showResults(Model model) {
         Utilisateur currentUser = utilisateurService.getCurrentUser();
         model.addAttribute("user", currentUser);
         model.addAttribute("notes", noteRepository.findAllByUtilisateur_noteId(currentUser.getId()));
         return "user/tableau_note";
+    }
+
+    /* redirection vers profil */
+    @GetMapping("/profil")
+    public String profil(Model model) {
+        Utilisateur currentUser = utilisateurService.getCurrentUser();
+        if (currentUser != null) {
+            model.addAttribute("user", currentUser);
+            return "user/profil";
+        } else {
+            return "redirect:/user/home";
+        }
+    }
+
+    /* méthode qui supprime un compte */
+    @PostMapping("/delete")
+    public String suppUser(
+            @PathVariable Long userId){
+
+
+        utilisateurRepository.deleteById(userId);
+
+        Iterable<Note> lesNotes = noteRepository.findAllByUtilisateur_noteId(userId);
+
+        for (Note n : lesNotes){
+            noteRepository.deleteById(n.getId());
+        }
+
+        return "redirect:/auth/connexion";
     }
 }

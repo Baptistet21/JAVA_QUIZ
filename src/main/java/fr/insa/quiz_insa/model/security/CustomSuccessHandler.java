@@ -39,8 +39,7 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
                 Long userId = user.getId();
                 user.setLastActive(LocalDateTime.now());
                 utilisateurRepository.save(user);
-//                response.sendRedirect("/view/user/menu2/" + userId);
-                response.sendRedirect("/user/menu2");
+                response.sendRedirect("/user/home");
             } else {
                 response.sendRedirect("/auth/connexion");
             }
