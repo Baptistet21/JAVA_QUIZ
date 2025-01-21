@@ -53,10 +53,21 @@
         <form th:action="@{/user/submitQuestionnaire}" method="post">
             <input type="hidden" th:name="userId" th:value="${user.id}" />
             <div th:each="question : ${questionnaire.questions}" class="question">
-                <p th:text="${question.intitule}">Question content</p>
-                <label>
-                    <input type="text" th:name="|answers[${question.id}]|" required/>
-                </label>
+                <div th:if="${question.getType() == 'ReponseSimple'}">
+                    <p th:text="${question.intitule}">Question content</p>
+                    <label>
+                        <input type="text" th:name="|answers[${question.id}]|" required/>
+                    </label>
+                </div>
+            </div>
+            <div th:each="choi : ${choix}" class="question">
+                <p th:text="${choi.intitule}">Question content</p>
+                <div th:each="pos : ${choi.possibilites}">
+                    <label>
+                        <input type="radio" th:name="|answers[${choi.id}]|" th:value="${pos.name}" required/>
+                        <span th:text="${pos.name}">Choice</span>
+                    </label>
+                </div>
             </div>
             <button type="submit">Submit</button>
         </form>

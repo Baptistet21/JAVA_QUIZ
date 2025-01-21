@@ -23,4 +23,8 @@ public class Choix extends Question implements Serializable {
     public Choix(String intitule, int nb_correct, Questionnaire questionnaire) {
         super(intitule, nb_correct, questionnaire);
     }
+
+    public String getType() {
+        return "Choix";
+    }
 }

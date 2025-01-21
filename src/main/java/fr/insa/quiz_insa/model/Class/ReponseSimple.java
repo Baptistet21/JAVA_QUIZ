@@ -22,4 +22,8 @@ public class ReponseSimple extends Question {
         super(intitule, nb_correct, questionnaire);
         this.texte = texte;
     }
+
+    public String getType() {
+        return "ReponseSimple";
+    }
 }

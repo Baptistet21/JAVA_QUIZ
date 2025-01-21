@@ -38,4 +38,8 @@ public class Question implements Serializable {
         this.nb_correct = nb_correct;
         this.questionnaire = questionnaire;
     }
+
+    public String getType() {
+        return "Question";
+    }
 }

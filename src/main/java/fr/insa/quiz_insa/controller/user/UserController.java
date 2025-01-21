@@ -1,20 +1,22 @@
 package fr.insa.quiz_insa.controller.user;
 
 import fr.insa.quiz_insa.model.Class.*;
+import fr.insa.quiz_insa.repository.ChoixRepository;
 import fr.insa.quiz_insa.repository.NoteRepository;
 import fr.insa.quiz_insa.repository.ReponseSimpleRepository;
 import fr.insa.quiz_insa.service.QuestionService;
 import fr.insa.quiz_insa.model.service.QuestionnaireService;
 import fr.insa.quiz_insa.service.ReponseQuizService;
 import fr.insa.quiz_insa.service.UtilisateurService;
+import org.checkerframework.checker.units.qual.C;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/user")
@@ -32,6 +34,8 @@ public class UserController {
     private ReponseSimpleRepository reponseSimpleRepository;
     @Autowired
     private NoteRepository noteRepository;
+    @Autowired
+    private ChoixRepository choixRepository;
 
     @GetMapping("/home")
     public String getAllQuestionnaires(Model model) {
@@ -72,7 +76,11 @@ public class UserController {
     public String createQuestionnaire(@PathVariable Long id, Model model) {
         Questionnaire questionnaire = questionnaireService.findById(id);
         model.addAttribute("questionnaire", questionnaire);
-
+        ArrayList<Choix> choix = questionnaire.getQuestions().stream()
+                .filter(question -> question instanceof Choix)
+                .map(question -> (Choix) question)
+                .collect(Collectors.toCollection(ArrayList::new));
+        model.addAttribute("choix", choix);
         Utilisateur currentUser = utilisateurService.getCurrentUser();
 
         System.out.println("Utilisateur : " + currentUser);
@@ -90,6 +98,8 @@ public class UserController {
             return "redirect:/user/home?error=userNotFound";
         }
 
+        System.out.println("Answers : " + answers);
+
         // Process each answer
         for (Map.Entry<String, String> entry : answers.entrySet()) {
             try {
@@ -100,24 +110,32 @@ public class UserController {
 
                     // Retrieve the question by ID
                     Question question = questionService.findById(questionId);
-                    if (question != null) {
-                        Optional<ReponseSimple> reponseSimple = reponseSimpleRepository.findById(questionId);
+                    Optional<ReponseSimple> reponseSimple = reponseSimpleRepository.findById(questionId);
+                    Optional<Choix> choix = choixRepository.findById(questionId);
+                    if (reponseSimple.isPresent()) {
                         ReponseQuiz reponseQuiz = new ReponseQuiz();
                         reponseQuiz.setReponse(answerContent);
                         reponseQuiz.setUtilisateur(utilisateur);
                         reponseQuiz.setQuestion_reponseQuiz(question);
 
-                        if (reponseSimple.isPresent()) {
-                            if (reponseSimple.get().getTexte().equals(answerContent)) {
-                                Note note = noteRepository.save(new Note(1, LocalDateTime.now(), utilisateur, question.getQuestionnaire()));
-                                reponseQuiz.setNote(note);
-                            } else {
-                                Note note = noteRepository.save(new Note(0, LocalDateTime.now(), utilisateur, question.getQuestionnaire()));
-                                reponseQuiz.setNote(note);
-                            }
+                        if (reponseSimple.get().getTexte().equals(answerContent)) {
+                            Note note = noteRepository.save(new Note(1, LocalDateTime.now(), utilisateur, question.getQuestionnaire()));
+                            reponseQuiz.setNote(note);
+                        } else {
+                            Note note = noteRepository.save(new Note(0, LocalDateTime.now(), utilisateur, question.getQuestionnaire()));
+                            reponseQuiz.setNote(note);
                         }
 
                         reponseQuizService.save(reponseQuiz);
+                    } else if (choix.isPresent()) {
+//                        List<Possibilite> possibilites = choix.get().getPossibilites().stream()
+//                                .filter(Possibilite::isCorrect).toList();
+//                        assert !possibilites.isEmpty();
+//                        if (Objects.equals(possibilites, answerContent)) {
+//                            noteRepository.save(new Note(1, LocalDateTime.now(), utilisateur, question.getQuestionnaire()));
+//                        } else {
+//                            noteRepository.save(new Note(0, LocalDateTime.now(), utilisateur, question.getQuestionnaire()));
+//                        }
                     }
                 }
             } catch (NumberFormatException e) {
