@@ -8,9 +8,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 
 public interface ReponseQuizRepository extends CrudRepository<ReponseQuiz, Long> {
-
-    @Query("select r from ReponseQuiz r where r.note.id = :id")
-    Iterable<ReponseQuiz> getReponseByNoteId(Long id);
-
-
 }

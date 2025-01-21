@@ -30,6 +30,11 @@
     .form-label {
       font-weight: 600;
     }
+    .error-message {
+      color: red;
+      font-size: 0.875em;
+      margin-top: 0.25em;
+    }
   </style>
 </head>
 <body>
@@ -37,6 +42,9 @@
   <h2 class="mb-4 text-center">CREATION DU QUESTIONNAIRE</h2>
   <form method="post" th:action="@{/admin/creation_questionnaire}" th:object="${questionnaire}" class="needs-validation">
     <div class="mb-3">
+      <span th:if="${questionnaire.niveauError}" th:text="${questionnaire.niveauError}" class="error-message"></span>
+      <span th:if="${#fields.hasErrors('theme')}" th:errors="*{theme}" class="error-message"></span>
+      <br>
       <label for="theme" class="form-label">Nom du thème</label>
       <input type="text" class="form-control" placeholder="Nom du thème" th:field="*{theme}" id="theme" required>
       <div class="invalid-feedback">

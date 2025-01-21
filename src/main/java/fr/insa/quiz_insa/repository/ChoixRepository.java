@@ -16,15 +16,4 @@ import java.util.List;
 
 public interface ChoixRepository extends CrudRepository<Choix,Long> {
 
-    @Modifying
-    @Transactional
-    @Query(value = "DELETE FROM Choix c WHERE c = :question")
-    void deleteChoixByQuestion(Question question);
-
-
-    @Modifying
-    @Transactional
-    @Query(value = "DELETE FROM Choix c WHERE c.id = :id")
-    void deleteChoixByQuestionId(Long id);
-
 }

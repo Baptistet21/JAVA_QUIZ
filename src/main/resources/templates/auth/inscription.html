@@ -58,18 +58,18 @@
     <h2 class="text-center">Créer votre compte</h2>
     <form method="post" th:action="@{/auth/registration}" th:object="${utilisateur}">
         <div class="mb-3">
-            <span th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}" class="error-message"></span>
+            <span th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}" class="error-message"></span><br>
             <label for="nom" class="form-label">Nom</label>
             <input type="text" id="nom" name="nom" placeholder="Nom" th:field="*{nom}" required class="form-control">
         </div>
         <div class="mb-3">
-            <span th:if="${#fields.hasErrors('prenom')}" th:errors="*{prenom}" class="error-message"></span>
+            <span th:if="${#fields.hasErrors('prenom')}" th:errors="*{prenom}" class="error-message"></span><br>
             <label for="prenom" class="form-label">Prénom</label>
             <input type="text" id="prenom" name="prenom" placeholder="Prénom" th:field="*{prenom}" required class="form-control">
         </div>
         <div class="mb-3">
             <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error-message"></span>
-            <span th:if="${utilisateur.emailError}" th:text="${utilisateur.emailError}" class="error-message"></span>
+            <span th:if="${utilisateur.emailError}" th:text="${utilisateur.emailError}" class="error-message"></span><br>
             <label for="email" class="form-label">Adresse e-mail</label>
             <input type="email" id="email" name="email" placeholder="Adresse e-mail" th:field="*{email}" required class="form-control">
         </div>
@@ -92,7 +92,7 @@
             </div>
         </div>
         <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error-message"></span>
-        <span th:if="${utilisateur.passwordError}" th:text="${utilisateur.passwordError}" class="error-message"></span>
+        <span th:if="${utilisateur.passwordError}" th:text="${utilisateur.passwordError}" class="error-message"></span><br>
         <div class="mb-3">
             <label for="date" class="form-label">Date de naissance</label>
             <input type="date" id="date" name="date_de_naissance" placeholder="Date de naissance" th:field="*{date_de_naissance}" required class="form-control">

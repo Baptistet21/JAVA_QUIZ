@@ -20,6 +20,7 @@ public class Choix extends Question implements Serializable {
     @OneToMany(mappedBy = "choix", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Possibilite> possibilites;
 
-    public Choix(String nom, boolean b, Question question) {
+    public Choix(String intitule, int nb_correct, Questionnaire questionnaire) {
+        super(intitule, nb_correct, questionnaire);
     }
 }

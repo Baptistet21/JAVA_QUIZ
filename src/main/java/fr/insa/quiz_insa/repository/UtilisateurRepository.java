@@ -16,21 +16,8 @@ import java.util.Optional;
     public interface UtilisateurRepository extends CrudRepository<Utilisateur,Long> {
 
         Utilisateur findByEmail (String email);
-
-        @Query("SELECT us FROM Utilisateur us WHERE us.email=:email")
-        Optional<Utilisateur> findUserByEmail(@Param("email") String email);
-
-
         Iterable<Utilisateur> findByRole(String role);
 
-        List<Utilisateur> findByLastActiveBefore(LocalDateTime date);
-
-        @Query("SELECT u FROM Utilisateur u " +
-                "WHERE " +
-                "(u.email LIKE %:filtre% OR " +
-                "u.nom LIKE %:filtre% OR " +
-                "u.prenom LIKE %:filtre%) AND u.role = 'USER'")
-        Iterable<Utilisateur> findByFiltre(String filtre);
 
 
 

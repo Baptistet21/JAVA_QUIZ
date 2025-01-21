@@ -5,12 +5,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 
 public interface QuestionnaireRepository extends CrudRepository<Questionnaire,Long> {
-    @Query("SELECT q FROM Questionnaire q " +
-            "WHERE " +
-            "q.theme LIKE %:filtre% ")
-    Iterable<Questionnaire> findByFiltre(String filtre);
+
+    Optional<Questionnaire> findQuestionnaireByTheme(String name);
 
 }

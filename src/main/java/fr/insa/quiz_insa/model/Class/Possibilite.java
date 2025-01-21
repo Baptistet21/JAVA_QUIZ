@@ -21,10 +21,15 @@ public class Possibilite implements Serializable {
     @NotBlank
     private String name;
 
-    @NotBlank
     private boolean correct;
 
     @ManyToOne
     @JoinColumn(name = "choix_id")
     private Choix choix;
+
+    public Possibilite(String name, boolean correct, Choix choix) {
+        this.name = name;
+        this.correct = correct;
+        this.choix = choix;
+    }
 }
