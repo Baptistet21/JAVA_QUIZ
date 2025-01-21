@@ -38,6 +38,7 @@
     <h2 class="mb-4">MENU UTILISATEUR</h2>
     <div class="d-grid gap-2">
         <a href="/user/resultats" class="btn btn-primary">Voir les résultats</a>
+        <a href="/user/profil" class="btn btn-primary">Profil</a>
         <a th:href="@{'/logout'}" class="btn btn-secondary">Déconnexion</a>
         <div th:if="${user.isAdmin()}">
             <a href="/admin/menu" class="btn btn-warning">Admin Menu</a>
